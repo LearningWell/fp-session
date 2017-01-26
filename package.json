@@ -4,11 +4,12 @@
   "description": "Slides for LW functional programming session",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "python -m SimpleHTTPServer 3000"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "reveal": "0.0.4"
+    "highlightjs": "^9.8.0",
+    "reveal.js": "^3.4.1"
   }
 }

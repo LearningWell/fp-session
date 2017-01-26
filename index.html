@@ -1,18 +1,40 @@
 <html>
     <head>
-        <link rel="stylesheet" href="node_modules/reveal/index.css">
-        <link rel="stylesheet" href="node_modules/reveal/theme/default.css">
+        <meta http-equiv="cache-control" content="no-cache" />
+        <link rel="stylesheet" href="node_modules/reveal.js/css/reveal.css" />
+        <link rel="stylesheet" href="node_modules/reveal.js/css/theme/black.css" />
+        <link rel="stylesheet" href="node_modules/highlightjs/styles/tomorrow-night-blue.css" />
     </head>
     <body>
         <div class="reveal">
             <div class="slides">
-                <section>Slide 1</section>
-                <section>Slide 2</section>
+                <section data-markdown="/slides/fp/first.md"></section>
+                <section data-markdown="/slides/fp/what-is-fp.md"></section>
+                <section data-markdown="/slides/fp/fp-langs.md"></section>
+                <section data-markdown="/slides/fp/how-to-write-fp.md"></section>
+                
+                <section data-markdown="/slides/elm/first.md"></section>
             </div>
         </div>
-        <script src="node_modules/reveal/index.js"></script>
+        <script src="node_modules/reveal.js/lib/js/head.min.js"></script>
+        <script src="node_modules/reveal.js/js/reveal.js"></script>
         <script>
-            Reveal.initialize();
+            Reveal.initialize({
+              controls: true,
+              progress: true,
+              keyboard: true,
+              overview: true,
+              history: true,
+              center: true,
+              fragments: true,
+              dependencies: [
+                { src: '/node_modules/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                { src: '/node_modules/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '/node_modules/reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                { src: '/node_modules/reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                { src: '/node_modules/reveal.js/plugin/notes/notes.js', async: true }
+              ]
+            });
         </script>
     </body>
 </html>
