@@ -25,11 +25,20 @@ note:
 ```cs
 private int currentValue;
 
-public int AddToValue(int valueToAdd)
-{
+public int AddToValue(int valueToAdd) {
   currentValue = currentValue + valueToAdd;
 
   return currentValue;
+}
+```
+
+### Pure function
+
+```cs
+private const int x = 10;
+
+public int AddToX(int y) {
+  return x + y;
 }
 ```
 
