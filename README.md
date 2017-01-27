@@ -12,4 +12,4 @@ Markdown separated into their own files are used as presentation data. They're l
 
 ## How to run
 
-First: `npm install`. Then, you need to host the `index.html` with any http server. If you got python (>= 2.0) installed, just execute `npm start` which will host the file with the built in http server in python.
+First: `npm install`. Then, you'll need to host the `index.html` with any http server. If you got python (>= 2.0) installed, just execute `npm start` which will host the file with the built in http server in python. When the server is up and running, navigate to `http://localhost:3000` (or whatever port you hosted it on).

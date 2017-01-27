@@ -1,16 +1,11 @@
-## Vad är FP?
-
----
-
 ### Pure functions
+*data in, data out*
 
-```js
-function add(x, y) {
+```cs
+public int Add(int x, int y) {
   return x + y;
 }
 ```
-
-*data in, data out*
 
 note:
 
@@ -24,7 +19,8 @@ note:
 
 ---
 
-## Gömda inputs och outputs
+## Impure functions
+### Gömda inputs och outputs
 
 ```cs
 private int currentValue;
@@ -59,7 +55,19 @@ public int AddToValue(int valueToAdd)
 
 ## Gömda inputs och outputs
 
-kallas sidoeffekter
+kallas även sidoeffekter
+
+---
+
+## Exempel på sidoeffekter
+
+- Mutering av state
+
+- Rörlig tid (DateTime.Now)
+
+- Extern kommunikation
+
+- Slumpgenerering av data
 
 ---
 
@@ -68,13 +76,21 @@ kallas sidoeffekter
 ```js
 let x = 5;
 
-function addToX(y) {
-  return x + y; 
-};
-
 x = 10;
 
-let result = addToX(10); // 15?
+console.log(x);
+// 10
+```
+
+## Immutability
+
+```js
+const x = 5;
+
+// x = 10 <-- Inte tillåtet
+
+console.log(x);
+// 5
 ```
 
 ---
@@ -82,14 +98,58 @@ let result = addToX(10); // 15?
 ## Mutering av state
 
 ```js
-function addToList(list, element) { ... }
+function updatePlayerScore (player, score) {
+  player.score += score;
+}
+```
 
+## Immutability
+
+```elm
+updatePlayerScore player score =
+  { player | score = score }
+```
+
+
+---
+
+## Mutering skapar osäkerhet
+
+```js
+function addToList(list, element) { ... }
+```
+
+```js
 let originalItems = [ 1, 2, 3, 4 ];
 
+// Behöver jag klona originalItems först?
 let allItems = addToList(originalItems, 5);
 
-writeToConsole(originalItems); // [ 1, 2, 3, 4 ] ?
-writeToConsole(allItems);      // [ 1, 2, 3, 4, 5 ] ?
+writeToConsole(originalItems); 
+// [ 1, 2, 3, 4 ] ?
+
+writeToConsole(allItems);      
+// [ 1, 2, 3, 4, 5 ] ?
+```
+
+---
+
+### Sidoeffekter skapar beroenden
+
+```cs
+private Database database;
+private UserCache userCache;
+
+public User GetUser(int userId) {
+  var user = userCache.GetUser(userId)
+
+  if (user == null) {
+    user = database.GetUser(userId);
+    userCache.CacheUser(user);
+  }
+
+  return user;
+}
 ```
 
 ---
@@ -104,99 +164,35 @@ public bool ProcessNextMessage(Queue queue) { ... }
 
 ---
 
-## Kan du hitta sidoeffekten?
-
----
-
-```js
-itemList.getActiveItemCount = function() {
-  let count = 0;
-  
-  for (let item in this.list) {
-    count += item.active ? 1 : 0;
-  }
-
-  return count;
-}
-```
-
----
-
-```js
-itemList.addNewItem = function(itemText) {
-  this.list.push({
-    text: itemText, 
-    active: true 
-  });
-}
-```
-
----
-
-## Exempel på sidoeffekter
-
-- Mutering av state
-
-- Tid (DateTime.Now)
-
-- Extern kommunikation
-
-- Slumpning av data
-
----
-
-## Sidoeffekter försvårar enhetstestning
-
-Ingen blackbox-testning
-
----
-
-## Sidoeffekter försvårar isolering
-
-Beroenden mellan komponenter
-
----
-
-## Sidoeffekter förstör composition
-
-Små delar kan inte enkelt sättas ihop för ett större sammanhang
-
----
-
-## Så... vad är FP?
-
----
 
 ## Funktionell programmering
 
-- Undviker sidoeffekter
+- Undviker sidoeffekter så långt det går
 
-- Kontrollerar sidoeffekter när man måste ha dom
+- Hanterar sidoeffekter vid sidan om när man måste ha dom
 
-- Varje funktion/komponent beskriver relationen mellan input och output
+- Varje funktion beskriver endast relationen mellan input och output
 
----
-
-## FP definieras inte av
-
-- map, filter, fold
-
-- higher order functions
-
-- type classes
-
-- monads
-
-- ...
+- Deklarativt - man beskriver *vad* man vill göra, inte *hur*
 
 ---
 
-## FP förenklar
+## Kan du hitta sidoeffekten?
 
-- förståelse av kod
+*Två tips på hur man kan känna igen dom*
 
-- enhetstester
+---
 
-- återanvändbarhet
+```cs
+public int GetActiveItemCount() {
+  ...
+}
+```
 
-- concurrency
+---
+
+```cs
+public void AddNewItem(string itemTitle) {
+  ...
+}
+```

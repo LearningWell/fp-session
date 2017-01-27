@@ -43,3 +43,9 @@
 - Java
 
 - Python
+
+---
+
+## Pure vs impure?
+
+*Inbyggda gränser vs disciplin*
