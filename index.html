@@ -27,9 +27,10 @@
               history: true,
               center: true,
               fragments: true,
+              pdfMaxPagesPerSlide: 1,
               //width: '100%',
-				      height: '100%',
-				      //margin: 0,
+		      height: '100%',
+			  //margin: 0,
               dependencies: [
                 { src: '/node_modules/reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
                 { src: '/node_modules/reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
@@ -38,6 +39,15 @@
                 { src: '/node_modules/reveal.js/plugin/notes/notes.js', async: true }
               ]
             });
+        </script>
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) 
+                ? '/node_modules/reveal.js/css/print/pdf.css' 
+                : '/node_modules/reveal.js/css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
         </script>
     </body>
 </html>
