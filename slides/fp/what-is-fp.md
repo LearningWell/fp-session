@@ -1,4 +1,4 @@
-### Pure functions
+### NIce Pure functions
 *data in, data out*
 
 ```cs
